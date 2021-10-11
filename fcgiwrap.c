@@ -533,6 +533,7 @@ static void handle_fcgi_request(void)
 	switch((pid = fork())) {
 		case -1:
 			goto err_fork;
+			break;
 
 		case 0: /* child */
 			close(pipe_in[1]);
@@ -579,6 +580,7 @@ static void handle_fcgi_request(void)
 
 			execl(filename, filename, (void *)NULL);
 			cgi_error("502 Bad Gateway", "Cannot execute script", filename);
+			break;
 
 		default: /* parent */
 			close(pipe_in[0]);
